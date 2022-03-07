@@ -1,22 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Planets',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Main(),
-    );
-  }
+  runApp(const Main());
 }
 
 class Main extends StatelessWidget {
@@ -24,6 +10,15 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      title: 'Planets',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.sairaCondensedTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
+    );
   }
 }
+
