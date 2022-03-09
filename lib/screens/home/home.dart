@@ -1,176 +1,342 @@
 import 'dart:math';
-
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:planets/screens/home/local_widgets/top_circle_anim.dart';
+import 'package:planets/screens/planet_info/planet_info_screen.dart';
 
 import 'local_widgets/dashed_vertical_line.dart';
+import 'local_widgets/heading_text.dart';
+import 'local_widgets/planet.dart';
+import 'local_widgets/sub_heading_text.dart';
+import 'local_widgets/temperature_text.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int index = 0;
+  List<String> planets = ['assets/img_planets/earth.png', 'assets/img_planets/jupiter.png'];
+  List<String> headers = ['EARTH', 'JUPITER'];
+  List<String> subHeaders = ['HOME', 'BLUES FOR PLANET'];
+
+  List<Planet> planetWidgets = [];
+  late Planet currentPlanet;
+
+  List<HeadingText> headerWidgets = [];
+  late HeadingText currentHeading;
+
+  List<SubHeadingText> subHeadingWidgets = [];
+  late SubHeadingText currentSubHeading;
+
+  List<TemperatureText> tempAtDayWidgets = [];
+  late TemperatureText currentTemAtDay;
+
+  List<TemperatureText> tempAtNightWidgets = [];
+  late TemperatureText currentTempAtNight;
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (int i = 0; i < planets.length; i++) {
+      /// Add planets
+      planetWidgets.add(
+        Planet(
+          url: planets[i],
+          key: ValueKey(i),
+        ),
+      );
+
+      /// Add Headings
+      headerWidgets.add(
+        HeadingText(
+          text: headers[i],
+          key: ValueKey(i),
+        ),
+      );
+
+      /// Add SubHeadings
+      subHeadingWidgets.add(
+        SubHeadingText(
+          subheading: subHeaders[i],
+          key: ValueKey(i),
+        ),
+      );
+
+      /// Add temp at day
+      tempAtDayWidgets.add(
+        TemperatureText(
+          text: '20°',
+          key: ValueKey(i),
+        ),
+      );
+
+      /// Add temp at night
+      tempAtNightWidgets.add(
+        TemperatureText(
+          text: '20°',
+          key: ValueKey(i),
+        ),
+      );
+    }
+
+    currentPlanet = planetWidgets[0];
+    currentHeading = headerWidgets[0];
+    currentSubHeading = subHeadingWidgets[0];
+    currentTemAtDay = tempAtDayWidgets[0];
+    currentTempAtNight = tempAtNightWidgets[0];
+  }
+
+  next() {
+    if (index == (planetWidgets.length - 1)) {
+      index = -1;
+    }
+
+    index++;
+
+    /// Next Planet
+    Planet planet = planetWidgets[index];
+    planet.offset = const Offset(1, 0);
+    currentPlanet = planet;
+
+    /// Next Heading
+    HeadingText headingText = headerWidgets[index];
+    headingText.offset = const Offset(1, 0);
+    currentHeading = headingText;
+
+    /// Next Sub Heading
+    SubHeadingText subHeadingText = subHeadingWidgets[index];
+    subHeadingText.offset = const Offset(1, 0);
+    currentSubHeading = subHeadingText;
+
+    currentTemAtDay = tempAtDayWidgets[index];
+    currentTempAtNight = tempAtNightWidgets[index];
+  }
+
+  previous() {
+    if (index == 0) {
+      index = planets.length;
+    }
+
+    index--;
+
+    /// Previous Planet
+    Planet planet = planetWidgets[index];
+    planet.offset = const Offset(-1, 0);
+    currentPlanet = planet;
+
+    /// Previous Heading
+    HeadingText headingText = headerWidgets[index];
+    headingText.offset = const Offset(-1, 0);
+    currentHeading = headingText;
+
+    /// Previous Sub Heading
+    SubHeadingText subHeadingText = subHeadingWidgets[index];
+    subHeadingText.offset = const Offset(-1, 0);
+    currentSubHeading = subHeadingText;
+
+    currentTemAtDay = tempAtDayWidgets[index];
+    currentTempAtNight = tempAtNightWidgets[index];
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String? swipeDirection;
+
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/space.jpg'),
-                fit: BoxFit.cover,
+      body: GestureDetector(
+        onPanUpdate: (update) {
+          swipeDirection = update.delta.dx < 0 ? 'left' : 'right';
+        },
+        onPanEnd: (details) {
+          if (swipeDirection == null) {
+            return;
+          }
+          if (swipeDirection == 'left') {
+            setState(() {
+              next();
+            });
+          }
+          if (swipeDirection == 'right') {
+            setState(() {
+              previous();
+            });
+          }
+        },
+        child: Stack(
+          children: [
+            /// Planet
+            Positioned.fill(
+              top: 410.h,
+              child: AnimatedSwitcher(
+                duration: Duration.zero,
+                child: currentPlanet,
               ),
             ),
-          ),
-          DelayedDisplay(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  radius: 1,
-                  colors: [
-                    Colors.blue.withOpacity(0.5),
-                    Colors.transparent,
-                  ],
+
+            /// Space
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/home_space.png'),
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: -40.h,
-            child: DelayedDisplay(
+
+            /// Sub Heading
+            Positioned.fill(
+              top: (ScreenUtil().screenHeight / 2) * 0.70,
               child: Align(
-                alignment: AlignmentDirectional.bottomCenter,
-                child: Transform.scale(
-                  scaleX: 1.6.w,
-                  scaleY: 1.5.h,
-                  child: Image.asset(
-                    'assets/img_planets/earth.png',
+                alignment: AlignmentDirectional.topCenter,
+                child: AnimatedSwitcher(
+                  duration: Duration.zero,
+                  child: currentSubHeading,
+                ),
+              ),
+            ),
+
+            /// Heading
+            Positioned.fill(
+              top: (ScreenUtil().screenHeight / 2) * 0.35,
+              child: Align(
+                alignment: AlignmentDirectional.topCenter,
+                child: AnimatedSwitcher(
+                  duration: Duration.zero,
+                  child: currentHeading,
+                ),
+              ),
+            ),
+
+            /// Overlay
+            Positioned(
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/overlay.png'),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/overlay.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
+
+            /// Top Rotating Circles
+            Positioned(
+              left: ScreenUtil().screenWidth / 2,
+              top: 80.h,
+              child: const TopCircleAnim(),
             ),
-          ),
-          Positioned(
-            left: ScreenUtil().screenWidth / 2,
-            top: 80.h,
-            child: const TopCircleAnim(),
-          ),
-          Positioned.fill(
-            top: (ScreenUtil().screenHeight / 2) * 0.35,
-            child: Text(
-              'EARTH',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 80.sp),
-            ),
-          ),
-          Positioned.fill(
-            top: (ScreenUtil().screenHeight / 2) * 0.70,
-            child: Text(
-              'BLUES FOR RED PLANET',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 20.sp, letterSpacing: 4),
-            ),
-          ),
-          Align(
-            alignment: AlignmentDirectional.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Divider(
-                  height: 1,
-                  color: Colors.white.withOpacity(0.5),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Row(
-                    children: [
-                      Text(
-                        'AT\nDAY',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12.sp),
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      DelayedDisplay(
-                        child: Text(
-                          '20°',
+
+            /// Bottom Row
+            Align(
+              alignment: AlignmentDirectional.bottomCenter,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  /// Horizontal divider line
+                  Divider(
+                    height: 1,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
+
+                  /// Temperature row
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Row(
+                      children: [
+                        /// Text Day
+                        Text(
+                          'AT\nDAY',
                           textAlign: TextAlign.left,
-                          style: TextStyle(color: Colors.white, fontSize: 40.sp),
+                          style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12.sp),
                         ),
-                      ),
-                      SizedBox(
-                        width: 25.w,
-                      ),
-                      CustomPaint(
-                        size: Size(1, 50.h),
-                        painter: DashedLineVerticalPainter(),
-                      ),
-                      SizedBox(
-                        width: 25.w,
-                      ),
-                      Text(
-                        'AT\nNIGHT',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12.sp),
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      DelayedDisplay(
-                        child: Text(
-                          '-70°',
+                        SizedBox(
+                          width: 7.w,
+                        ),
+                        AnimatedSwitcher(
+                          duration: Duration.zero,
+                          child: currentTemAtDay,
+                        ),
+                        SizedBox(
+                          width: 25.w,
+                        ),
+
+                        /// Vertical dotted divider line
+                        CustomPaint(
+                          size: Size(1, 50.h),
+                          painter: DashedLineVerticalPainter(),
+                        ),
+                        SizedBox(
+                          width: 25.w,
+                        ),
+
+                        /// Text Night
+                        Text(
+                          'AT\nNIGHT',
                           textAlign: TextAlign.left,
-                          style: TextStyle(color: Colors.white, fontSize: 40.sp),
+                          style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12.sp),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(15),
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(0.5),
-                                  width: 1,
-                                ),
-                              ),
-                              child: Center(
-                                child: Transform.rotate(
-                                  angle: 270 * pi / 180,
-                                  child: const Icon(
-                                    Icons.arrow_back_ios_rounded,
-                                    color: Colors.white,
-                                    size: 12,
+                        SizedBox(
+                          width: 7.w,
+                        ),
+                        AnimatedSwitcher(
+                          duration: Duration.zero,
+                          child: currentTemAtDay,
+                        ),
+
+                        /// Button More
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const PlanetInfoScreen()),
+                                  );
+                                },
+                                child: Hero(
+                                  tag: 'btn_more',
+                                  child: Container(
+                                    padding: const EdgeInsets.all(15),
+                                    margin: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+                                      border: Border.all(
+                                        color: Colors.white.withOpacity(0.5),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Transform.rotate(
+                                        angle: 270 * pi / 180,
+                                        child: const Icon(
+                                          Icons.arrow_back_ios_rounded,
+                                          color: Colors.white,
+                                          size: 12,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
