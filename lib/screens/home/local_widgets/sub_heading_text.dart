@@ -11,11 +11,11 @@ class SubHeadingText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DelayedDisplay(
-      slidingBeginOffset: offset == null ? const Offset(-1, 0) : offset!,
+      slidingBeginOffset: offset == null ? const Offset(0, 1) : offset!,
       child: Text(
-        subheading,
+        subheading.toUpperCase(),
         textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 20.sp, letterSpacing: 4),
+        style: TextStyle(color: const Color.fromRGBO(123, 123, 140, 1), fontSize: 20.sp, letterSpacing: 4),
       ),
     );
   }

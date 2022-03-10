@@ -11,9 +11,9 @@ class HeadingText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DelayedDisplay(
-      slidingBeginOffset: offset == null ? const Offset(-1, 0) : offset!,
+      slidingBeginOffset: offset == null ? const Offset(0, 1) : offset!,
       child: Text(
-        text,
+        text.toUpperCase(),
         textAlign: TextAlign.center,
         style: TextStyle(color: Colors.white, fontSize: 80.sp),
       ),

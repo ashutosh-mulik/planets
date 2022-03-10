@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class PlanetWithPath extends CustomPainter {
-
   double radius;
   PlanetWithPath({required this.radius});
 

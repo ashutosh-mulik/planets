@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:planets/screens/home/local_widgets/top_circle_anim.dart';
 import 'package:planets/screens/planet_info/planet_info_screen.dart';
+import 'package:planets/services/models/planet_model.dart';
+import 'package:planets/services/planet_service.dart';
 
 import 'local_widgets/dashed_vertical_line.dart';
 import 'local_widgets/heading_text.dart';
@@ -19,9 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
-  List<String> planets = ['assets/img_planets/earth.png', 'assets/img_planets/jupiter.png'];
-  List<String> headers = ['EARTH', 'JUPITER'];
-  List<String> subHeaders = ['HOME', 'BLUES FOR PLANET'];
+  List<PlanetModel> planets = PlanetService().getPlanets();
 
   List<Planet> planetWidgets = [];
   late Planet currentPlanet;
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
       /// Add planets
       planetWidgets.add(
         Planet(
-          url: planets[i],
+          url: planets[i].homeAsset,
           key: ValueKey(i),
         ),
       );
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       /// Add Headings
       headerWidgets.add(
         HeadingText(
-          text: headers[i],
+          text: planets[i].planetName,
           key: ValueKey(i),
         ),
       );
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
       /// Add SubHeadings
       subHeadingWidgets.add(
         SubHeadingText(
-          subheading: subHeaders[i],
+          subheading: planets[i].homeSubHeading,
           key: ValueKey(i),
         ),
       );
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       /// Add temp at day
       tempAtDayWidgets.add(
         TemperatureText(
-          text: '20°',
+          text: planets[i].tempDay,
           key: ValueKey(i),
         ),
       );
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
       /// Add temp at night
       tempAtNightWidgets.add(
         TemperatureText(
-          text: '20°',
+          text: planets[i].tempNight,
           key: ValueKey(i),
         ),
       );
@@ -286,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         AnimatedSwitcher(
                           duration: Duration.zero,
-                          child: currentTemAtDay,
+                          child: currentTempAtNight,
                         ),
 
                         /// Button More
@@ -298,7 +298,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onTap: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => const PlanetInfoScreen()),
+                                    PageRouteBuilder(
+                                      transitionDuration: const Duration(milliseconds: 900),
+                                      pageBuilder: (context, animation, secondaryAnimation) {
+                                       return PlanetInfoScreen(
+                                         planetModel: planets[index],
+                                       );
+                                      }
+                                    ),
                                   );
                                 },
                                 child: Hero(

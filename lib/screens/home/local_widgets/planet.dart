@@ -13,7 +13,7 @@ class Planet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DelayedDisplay(
-      slidingBeginOffset: offset == null ? const Offset(-1, 0) : offset!,
+      slidingBeginOffset: offset == null ? const Offset(0, 1) : offset!,
       child: Hero(
         tag: 'img_planet',
         child: Transform.scale(
