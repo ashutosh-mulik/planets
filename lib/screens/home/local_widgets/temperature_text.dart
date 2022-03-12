@@ -13,7 +13,7 @@ class TemperatureText extends StatelessWidget {
       child: AutoSizeText(
         text.toUpperCase(),
         textAlign: TextAlign.left,
-        minFontSize: 30.sp,
+        minFontSize: 35.sp,
         style: const TextStyle(color: Colors.white,),
       ),
     );

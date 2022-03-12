@@ -15,7 +15,7 @@ class HeadingText extends StatelessWidget {
       child: Text(
         text.toUpperCase(),
         textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white, fontSize: 80.sp),
+        style: TextStyle(color: Colors.white, fontSize: 90.sp),
       ),
     );
   }

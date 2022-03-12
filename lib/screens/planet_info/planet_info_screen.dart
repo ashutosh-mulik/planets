@@ -1,7 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -196,7 +193,7 @@ class PlanetInfoScreen extends StatelessWidget {
                                 DelayedDisplay(
                                   delay: const Duration(milliseconds: 500),
                                   child: Text(
-                                    '0',
+                                    planetModel.moons.toUpperCase(),
                                     style: TextStyle(color: Colors.white, fontSize: 40.sp, height: 1.h),
                                   ),
                                 ),

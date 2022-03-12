@@ -8,8 +8,8 @@ class PlanetService {
       PlanetModel(
         planetName: 'mercury',
         homeSubHeading: 'ROMAN GOD OF SPEED',
-        tempDay: '426°C',
-        tempNight: '-201°C',
+        tempDay: '427°C',
+        tempNight: '-173°C',
         homeAsset: 'assets/img_planets/mercury.png',
         infoAsset: 'assets/img_planets/mercury.png',
         dayLength: '58',
@@ -40,7 +40,7 @@ class PlanetService {
           Characteristics(
             title: 'radius',
             value: '2.4',
-            unit: 'x 10¯³\nkg',
+            unit: 'x 10³\nkm',
             asset: 'assets/icons/radius.png',
           ),
           Characteristics(
@@ -68,8 +68,8 @@ class PlanetService {
       PlanetModel(
         planetName: 'venus',
         homeSubHeading: 'ROMAN GODDESS OF LOVE',
-        tempDay: '864°C',
-        tempNight: '864°C',
+        tempDay: '462°C',
+        tempNight: '462°C',
         homeAsset: 'assets/img_planets/venus.png',
         infoAsset: 'assets/img_planets/venus.png',
         dayLength: '243',
@@ -98,7 +98,7 @@ class PlanetService {
           Characteristics(
             title: 'radius',
             value: '6.0',
-            unit: 'x 10³\nkg',
+            unit: 'x 10³\nkm',
             asset: 'assets/icons/radius.png',
           ),
           Characteristics(
@@ -158,7 +158,7 @@ class PlanetService {
             Characteristics(
               title: 'radius',
               value: '6.3',
-              unit: 'x 10³\nkg',
+              unit: 'x 10³\nkm',
               asset: 'assets/icons/radius.png',
             ),
             Characteristics(
@@ -216,7 +216,7 @@ class PlanetService {
           Characteristics(
             title: 'radius',
             value: '3.3',
-            unit: 'x 10³\nkg',
+            unit: 'x 10³\nkm',
             asset: 'assets/icons/radius.png',
           ),
           Characteristics(
@@ -244,11 +244,11 @@ class PlanetService {
       PlanetModel(
         planetName: 'jupiter',
         homeSubHeading: 'KING OF THE ROMAN GODS',
-        tempDay: '-234°C',
-        tempNight: '-234°C',
+        tempDay: '-150°C',
+        tempNight: '-150°C',
         homeAsset: 'assets/img_planets/jupiter.png',
         infoAsset: 'assets/img_planets/jupiter.png',
-        dayLength: '0.9',
+        dayLength: '0.3',
         orbitalPeriod: '4380',
         moons: '79',
         facts: [
@@ -275,7 +275,7 @@ class PlanetService {
           Characteristics(
             title: 'radius',
             value: '6.9',
-            unit: 'x 10⁴\nkg',
+            unit: 'x 10⁴\nkm',
             asset: 'assets/icons/radius.png',
           ),
           Characteristics(
@@ -307,7 +307,7 @@ class PlanetService {
         tempNight: '-113°C',
         homeAsset: 'assets/img_planets/saturn.png',
         infoAsset: 'assets/img_planets/info_saturn.png',
-        dayLength: '0.1',
+        dayLength: '0.4',
         orbitalPeriod: '10585',
         moons: '62',
         facts: [
@@ -333,7 +333,7 @@ class PlanetService {
           Characteristics(
             title: 'radius',
             value: '5.8',
-            unit: 'x 10⁴\nkg',
+            unit: 'x 10⁴\nkm',
             asset: 'assets/icons/radius.png',
           ),
           Characteristics(
@@ -365,7 +365,7 @@ class PlanetService {
         tempNight: '-195°C',
         homeAsset: 'assets/img_planets/uranus.png',
         infoAsset: 'assets/img_planets/uranus.png',
-        dayLength: '0.1',
+        dayLength: '0.2',
         orbitalPeriod: '30660',
         moons: '27',
         facts: [
@@ -391,7 +391,7 @@ class PlanetService {
           Characteristics(
             title: 'radius',
             value: '2.5',
-            unit: 'x 10⁴\nkg',
+            unit: 'x 10⁴\nkm',
             asset: 'assets/icons/radius.png',
           ),
           Characteristics(
@@ -419,8 +419,8 @@ class PlanetService {
       PlanetModel(
         planetName: 'neptune',
         homeSubHeading: 'ROMAN GOD OF THE SEA',
-        tempDay: '-200°C',
-        tempNight: '-200°C',
+        tempDay: '-221°C',
+        tempNight: '-221°C',
         homeAsset: 'assets/img_planets/neptune.png',
         infoAsset: 'assets/img_planets/neptune.png',
         dayLength: '0.6',
@@ -450,7 +450,7 @@ class PlanetService {
           Characteristics(
             title: 'radius',
             value: '2.4',
-            unit: 'x 10⁴\nkg',
+            unit: 'x 10⁴\nkm',
             asset: 'assets/icons/radius.png',
           ),
           Characteristics(

@@ -21,7 +21,7 @@ class PlanetWithText extends StatelessWidget {
               planetName.toUpperCase(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 100.sp,
+                fontSize: 110.sp,
                 color: const Color.fromRGBO(123, 123, 140, 1),
               ),
             ),

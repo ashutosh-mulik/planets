@@ -15,7 +15,7 @@ class SubHeadingText extends StatelessWidget {
       child: Text(
         subheading.toUpperCase(),
         textAlign: TextAlign.center,
-        style: TextStyle(color: const Color.fromRGBO(123, 123, 140, 1), fontSize: 20.sp, letterSpacing: 4),
+        style: TextStyle(color: const Color.fromRGBO(123, 123, 140, 1), fontSize: 25.sp, letterSpacing: 4),
       ),
     );
   }
