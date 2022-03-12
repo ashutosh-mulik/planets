@@ -19,7 +19,6 @@ dependencies:
   carousel_slider: ^4.0.0
   auto_size_text: ^3.0.0
   bottom_sheet: ^2.0.0
-  get_storage: ^2.0.3
   easy_rich_text: ^1.0.4
   url_launcher: ^6.0.20
 

@@ -1,16 +1,13 @@
 import 'dart:math';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:planets/screens/constansts.dart';
 import 'package:planets/screens/home/local_widgets/top_circle_anim.dart';
 import 'package:planets/screens/planet_info/planet_info_screen.dart';
 import 'package:planets/services/models/planet_model.dart';
 import 'package:planets/services/planet_service.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'local_widgets/dashed_vertical_line.dart';
 import 'local_widgets/heading_text.dart';
@@ -152,13 +149,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     String? swipeDirection;
-    var box = GetStorage();
-    if (box.read('isFirstTime') == null) {
-      Future.delayed(Duration.zero, () {
-        bottomSheet();
-      });
-      box.write('isFirstTime', false);
-    }
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -183,6 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Stack(
           children: [
+
             /// Planet
             Positioned.fill(
               top: 410.h,
@@ -245,6 +236,22 @@ class _HomeScreenState extends State<HomeScreen> {
               child: GestureDetector(
                 onTap: () => bottomSheet(),
                 child: const TopCircleAnim(),
+              ),
+            ),
+
+            ///Info Button
+            Positioned(
+              top: 30.h,
+              right: 0.w,
+              child: Align(
+                alignment: AlignmentDirectional.topEnd,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.info_outline_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => bottomSheet(),
+                ),
               ),
             ),
 

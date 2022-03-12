@@ -89,7 +89,7 @@ class StrokedText extends StatelessWidget {
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = 4
-              ..color = Color.fromRGBO(8, 9, 22, 0.3),
+              ..color = const Color.fromRGBO(8, 9, 22, 0.3),
           ),
         ),
 
