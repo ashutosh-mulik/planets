@@ -3,7 +3,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:planets/screens/constansts.dart';
+import 'package:planets/constansts.dart';
 import 'package:planets/screens/home/local_widgets/top_circle_anim.dart';
 import 'package:planets/screens/planet_info/planet_info_screen.dart';
 import 'package:planets/services/models/planet_model.dart';

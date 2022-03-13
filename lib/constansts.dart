@@ -1,6 +1,6 @@
 
 const info =
-'''This app is an implementation of Diego Leal's idea.
+'''I want to thank Diego Leal whose design I have attempted to implement into flutter. All credits to him for applications aesthetics.
 www.dribbble.com/shots/3866044-Planets
 
 Follow Me

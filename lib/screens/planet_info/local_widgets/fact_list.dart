@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FactsList extends StatefulWidget {
-  List<String> factsList;
-  FactsList({Key? key, required this.factsList}) : super(key: key);
+  final List<String> factsList;
+  const FactsList({Key? key, required this.factsList}) : super(key: key);
 
   @override
   State<FactsList> createState() => _FactsListState();
